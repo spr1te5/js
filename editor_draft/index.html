@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  
+  <link href="../editor/css/libs/alpaca/alpaca.min.css" media="all" rel="stylesheet" />    
+  <link href="../editor/css/libs/bootstrap/bootstrap.min.css" media="all" rel="stylesheet" />  
+  <link href="../editor/css/libs/spectrum/spectrum.css" media="all" rel="stylesheet" />    
+  
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    } 
+
+    body {
+      position: relative;
+      min-height: 100vh;
+      height: 1px;
+    }
+
+    .templates-editor-wrapper {
+      position: absolute;
+      left: 20%;
+      top: 0px;
+      margin-top: 10px;
+      min-height: 100%;
+      width: 60%;
+    }
+
+    #templates-editor {
+/*      width: 60%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+*/      background-color: lightgrey;
+       width: 100%;
+       height: 100%;
+       position: absolute;
+    }
+
+    #templates-editor .graphics-wrapper {
+      display: block;
+      width: 90%;
+      min-width: 90%;
+      margin-left: auto;
+      margin-right: auto;      
+      position: relative;
+    }
+
+    #templates-editor .graphics-wrapper .model-graphics {
+      margin: 4px 0px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #templates-editor .settings-wrapper {
+      display: block;
+      margin: 10px 10px;
+      height: 80vh;
+      overflow-y: auto;
+    }
+
+    #templates-editor .settings-wrapper .model-title {
+      font-style: italic;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+    }
+
+    #templates-editor .option-wrapper > * {
+      display: inline-block;
+    }
+
+    #templates-editor .graphics-section, #templates-editor .settings-section {
+      display: inline-block;
+      border-style: inset;
+      border-width: 1px;
+      vertical-align: top;
+      min-width: 48%;
+      margin-top: 10px;      
+    }
+   </style>
+</head>
+<body>
+
+  <div class='templates-editor-wrapper'>
+    <div id='templates-editor'>
+
+      <div class='graphics-section'>
+        <div data-bind='foreach: {data: views, afterRender: afterRender}'>
+          <div class='graphics-wrapper'>
+            <div class='model-graphics' data-bind='with: graphicView, visible: visible' style= 'display: none;'>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='settings-section'>
+        <select class='form-control model-selector' data-bind='options: models, optionsValue: function(m){ return m.getUID()}, optionsText: function(m){ return m.getName(); }, value: selectedModel' ></select>
+
+        <div data-bind='foreach: {data: views, afterRender: afterRender}'>
+          <div class='settings-wrapper' style='display: none;' data-bind='visible: visible'>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type='text/javascript' src='../editor/js/libs/fabric.min.js'></script>
+  <script type='text/javascript' src='../editor/js/libs/knockout-3.4.2.js'></script>
+  <script type='text/javascript' src='../editor/js/libs/jquery/jquery-3.3.1.min.js'></script>
+
+  <script type='text/javascript' src='../editor/js/libs/alpaca/handlebars-v4.0.11.js'></script>
+  <script type='text/javascript' src='../editor/js/libs/bootstrap/bootstrap.min.js'></script>
+  <script type='text/javascript' src='../editor/js/libs/spectrum/spectrum.js'></script>
+  <script type='text/javascript' src='../editor/js/libs/alpaca/alpaca.min.js'></script>
+
+  <!-- Elements !-->
+  <script type='text/javascript' src='../editor/js/oro/graphics/elements/element.js' ></script>
+  <script type='text/javascript' src='../editor/js/oro/graphics/elements/builder.js' ></script>
+  <script type='text/javascript' src='../editor/js/oro/graphics/fabricjs/factory.js' ></script>
+
+  <script type='text/javascript' src='../editor/js/oro/helpers/derive.js'></script>
+  <script type='text/javascript' src='../editor/js/oro/helpers/string.js'></script>
+
+  <!-- Templates !-->
+  <script type='text/javascript' src='../editor/js/oro/graphics/templates-editor/templates/templates.js'></script>
+
+  <!-- Editor !-->
+  <script type='text/javascript' src='../editor/js/oro/graphics/templates-editor/fabricjs-view.js'></script>
+  <script type='text/javascript' src='../editor/js/oro/graphics/templates-editor/settings-view.js'></script>
+  <script type='text/javascript' src='../editor/js/oro/graphics/templates-editor/template-view-model.js'></script>
+  <script type='text/javascript' src='../editor/js/oro/graphics/templates-editor/editor.js'></script>
+
+  <script type='text/javascript'>
+    $(function(){
+       window.model = new Oro.Graphics.TemplatesEditor.Editor(
+         document.getElementById('templates-editor')
+      );
+    });
+  </script>
+</body>
+</html>
